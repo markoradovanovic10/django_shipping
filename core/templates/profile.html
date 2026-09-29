@@ -1,0 +1,16 @@
+<h1>Test 123</h1>
+
+{% if form %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+{% endif %}
+
+{% for log in user.vehicle_logs.all %}
+    <p>{{ log.vehicle.plate_number }}: {{ log.return_time }} {{ log.mileage }}km (&euro;{{ log.earning }})</p>
+{% endfor %}
+
+
+<p>{{ data.user.email }}</p>
