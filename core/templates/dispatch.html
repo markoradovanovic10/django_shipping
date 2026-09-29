@@ -9,5 +9,7 @@
         <p>To: {{ shipment.delivery_location }}</p>
         <p>Driver: {{ shipment.driver }}</p>
         <p>Vehicle: {{ shipment.vehicle }}</p>
+
+        <a href="{% url 'shipment_edit' shipment.id %}">Edit</a>
     </div>
 {% endfor %}

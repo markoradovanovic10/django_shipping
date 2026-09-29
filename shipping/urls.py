@@ -19,9 +19,11 @@ from django.urls import path
 from core.views import ProfileView
 from core.views import DispatchView
 from core.admin import admin_site
+from core.views import ShipmentUpdateView
 
 urlpatterns = [
     path('admin/', admin_site.urls),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('dispatch/', DispatchView.as_view(), name='dispatch')
+    path('dispatch/', DispatchView.as_view(), name='dispatch'),
+    path('shipment/<int:pk>/edit/', ShipmentUpdateView.as_view(), name='shipment_edit')
 ]

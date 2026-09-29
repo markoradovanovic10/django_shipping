@@ -1,4 +1,6 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
+
 from .city import City
 
 class Company(models.Model):
@@ -6,6 +8,8 @@ class Company(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='companies')
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
