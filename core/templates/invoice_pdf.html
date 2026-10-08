@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+    @font-face { font-family: DejaVu; src: url("{{ font_path }}"); }
+    @page { size: A4; margin: 2cm; }
+    body { font-family: DejaVu; font-size: 11px; color: #222; }
+    h1 { font-size: 22px; margin: 0; }
+    table { width: 100%; border-collapse: collapse; }
+    .meta td { vertical-align: top; padding: 2px 0; }
+    .items th { background-color: #eeeeee; border: 1px solid #999; padding: 6px; text-align: left; }
+    .items td { border: 1px solid #999; padding: 6px; }
+    .right { text-align: right; }
+    .total { font-size: 14px; font-weight: bold; }
+    .footer { margin-top: 40px; font-size: 9px; color: #777; }
+</style>
+</head>
+<body>
+
+<table class="meta">
+    <tr>
+        <td><h1>FAKTURA</h1></td>
+        <td class="right">
+            <b>Broj fakture:</b> {{ invoice.pk|stringformat:"06d" }}<br>
+            <b>Datum:</b> {{ invoice.date|date:"d.m.Y." }}
+        </td>
+    </tr>
+</table>
+
+<br><br>
+
+<table class="meta">
+    <tr>
+        <td width="50%">
+            <b>Kupac:</b><br>
+            {{ shipment.company.name }}
+        </td>
+        <td width="50%">
+            <b>Pošiljka:</b><br>
+            #{{ shipment.pk }} - {{ shipment.title }}
+        </td>
+    </tr>
+</table>
+
+<br><br>
+
+<table class="items">
+    <tr>
+        <th>Opis</th>
+        <th>Relacija</th>
+        <th class="right">Rastojanje</th>
+        <th class="right">Iznos</th>
+    </tr>
+    <tr>
+        <td>{{ shipment.title }}{% if shipment.description %}<br>{{ shipment.description }}{% endif %}</td>
+        <td>{{ shipment.pickup_location }}<br>&rarr; {{ shipment.delivery_location }}</td>
+        <td class="right">{{ shipment.estimated_distance|default:"-" }} km</td>
+        <td class="right">{{ invoice.price }} RSD</td>
+    </tr>
+</table>
+
+<br>
+
+<table>
+    <tr>
+        <td class="right total">UKUPNO ZA UPLATU: {{ invoice.price }} EUR</td>
+    </tr>
+</table>
+
+<div class="footer">
+    Faktura br. {{ invoice.pk|stringformat:"06d" }} je generisana automatski.
+</div>
+
+</body>
+</html>

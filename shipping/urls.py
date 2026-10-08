@@ -20,10 +20,18 @@ from core.views import ProfileView
 from core.views import DispatchView
 from core.admin import admin_site
 from core.views import ShipmentUpdateView
+from core.views import InvoicePDFView
+from django.contrib.auth import views as auth_views
+from core.views import HomePageView
+from core.views import InvoiceListView
 
 urlpatterns = [
+    path('', auth_views.LoginView.as_view(template_name='auth/login.html', next_page='home_page'), name='login'),
     path('admin/', admin_site.urls),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('dispatch/', DispatchView.as_view(), name='dispatch'),
-    path('shipment/<int:pk>/edit/', ShipmentUpdateView.as_view(), name='shipment_edit')
+    path('shipment/<int:pk>/edit/', ShipmentUpdateView.as_view(), name='shipment_edit'),
+    path('invoice/<int:pk>/view', InvoicePDFView.as_view(), name='invoice'),
+    path('general/', HomePageView, name='home_page'),
+    path('invoices/', InvoiceListView.as_view(), name='invoice_list' )
 ]
